@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+# this script needs a config file with the following parameters:
+# REMOTE_DIR="<openhab-config-dir>"
+# USER=<openhab-username>
+# HOST=<openhab-ip-address>
+# IPCAM_FIX_URL="<url of ipcam_fix>"
+# IPCAM_DYN_URL="<url of ipcam_dyn>"
+#
 source ../cool.cfg
 
 SSH_CMD='ssh '
