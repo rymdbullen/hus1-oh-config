@@ -7,11 +7,33 @@
 # IPCAM_FIX_URL="<url of ipcam_fix>"
 # IPCAM_DYN_URL="<url of ipcam_dyn>"
 #
+CONFIG_FILE="../cool.cfg"
+if [ ! -f $CONFIG_FILE ]; then
+  echo "${CONFIG_FILE} doesn't exist"
+  exit 1
+fi
 source ../cool.cfg
 
 SSH_CMD='ssh '
 LOCAL_DIR="./"
 CONNECTION="${USER}@${HOST}"
+
+if [ ! -d $LOCAL_DIR/persistence ]; then
+  echo "${LOCAL_DIR}/persistence doesn't exist"
+  exit 1
+fi
+if [ ! -d $LOCAL_DIR/rules ]; then
+  echo "${LOCAL_DIR}/rules doesn't exist"
+  exit 1
+fi
+if [ ! -d $LOCAL_DIR/sitemaps ]; then
+  echo "${LOCAL_DIR}/sitemaps doesn't exist"
+  exit 1
+fi
+if [ ! -f $LOCAL_DIR/openhab.cfg ]; then
+  echo "${LOCAL_DIR}/openhab.cfg doesn't exist"
+  exit 1
+fi
 
 echo "Config for the connection: $CONNECTION" >&2
 echo "Config for the IPCAM_FIX_URL: $IPCAM_FIX_URL" >&2
