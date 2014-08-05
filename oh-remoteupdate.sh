@@ -50,6 +50,6 @@ ssh $CONNECTION "sed -i 's/@@IPCAM_FIX@@/$IPCAM_FIX_URL/g' $REMOTE_DIR/sitemaps/
 #ssh $CONNECTION "sed -i 's/@@IPCAM_DYN@@/http:\/\/192.168.1.19\/snapshot.cgi?user=ser_foscam\&pwd=orvar888\&count=14/g' $REMOTE_DIR/sitemaps/hus1.sitemap"
 ssh $CONNECTION "sed -i 's/@@IPCAM_DYN@@/$IPCAM_DYN_URL/g' $REMOTE_DIR/sitemaps/hus1.sitemap"
 
-ssh $CONNECTION "sed -i -e \"\\\$a${OH_USER}\" $REMOTE_DIR/users.cfg"
+#ssh $CONNECTION "sed -i -e \"\\\$a${OH_USER}\" $REMOTE_DIR/users.cfg"
 
 cd -
