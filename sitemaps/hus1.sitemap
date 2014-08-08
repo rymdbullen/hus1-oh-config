@@ -39,6 +39,9 @@ sitemap demo label="Main Menu"
                         }
                 }
         }
+        Frame label="Presence" {
+                Group item=gPresence label="Presence"
+        }
         Frame label="Motion Alarms" {
                 Group item=gAlarm label="Motion Alarms"
         }

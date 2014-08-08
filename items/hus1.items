@@ -1,6 +1,7 @@
 Group All
 Group gH                (All)
 Group gAlarm            (All)
+Group gPresence         (All)
 Group Outdoor           (All)
 Group Shutters          (All)
 Group Weather           (All)
@@ -27,8 +28,9 @@ Group:Contact:OR(OPEN, CLOSED)     Windows        "Open windows [(%d)]"         
 Switch ipcam_fix     "Alarm ipcam_fix" (gAlarm)
 Switch ipcam_dyn     "Alarm ipcam_dyn" (gAlarm)
 
-Switch  PresenceJan_PhoneMqttHome   "Jan @ Home"   { mqttitude="home:owntracks/daniel/iphone5s:home" }
-Switch  PresenceJan_PhoneMqttWork   "Jan @ Work"   { mqttitude="home:owntracks/daniel/iphone5s:work" }
+Switch  PresenceJan_PhoneMqttHome   "Jan @ Home"  (gPresence)  { mqttitude="home:owntracks/daniel/iphone5s:home" }
+Switch  PresenceJan_PhoneMqttHus1   "Jan @ Hus1"  (gPresence)  { mqttitude="home:owntracks/daniel/iphone5s:hus1" }
+Switch  PresenceJan_PhoneMqttWork   "Jan @ Work"  (gPresence)  { mqttitude="home:owntracks/daniel/iphone5s:work" }
 
 /* hus1 */
 Number  Temperature_Outside4in1 "Philio 4in1 Temperature [%.1f °C]"             <temperature>  (GH_Living,Temperature) { zwave="7:1:command=sensor_multilevel,sensor_type=1" }
