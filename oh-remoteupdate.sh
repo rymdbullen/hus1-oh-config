@@ -6,6 +6,8 @@
 # HOST=<openhab-ip-address>
 # IPCAM_FIX_URL="<url of ipcam_fix>"
 # IPCAM_DYN_URL="<url of ipcam_dyn>"
+# MQTT_USER="mqtt username"
+# MQTT_PWD="mqtt password"
 #
 CONFIG_FILE="../cool.cfg"
 if [ ! -f $CONFIG_FILE ]; then
@@ -51,5 +53,7 @@ ssh $CONNECTION "sed -i 's/@@IPCAM_FIX@@/$IPCAM_FIX_URL/g' $REMOTE_DIR/sitemaps/
 ssh $CONNECTION "sed -i 's/@@IPCAM_DYN@@/$IPCAM_DYN_URL/g' $REMOTE_DIR/sitemaps/hus1.sitemap"
 
 #ssh $CONNECTION "sed -i -e \"\\\$a${OH_USER}\" $REMOTE_DIR/users.cfg"
+ssh $CONNECTION "sed -i -e 's/@@MQTT_USER@@/${MQTT_USER}/g' $REMOTE_DIR/openhab.cfg"
+ssh $CONNECTION "sed -i -e 's/@@MQTT_PWD@@/${MQTT_PWD}/g' $REMOTE_DIR/openhab.cfg"
 
 cd -

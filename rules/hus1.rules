@@ -4,7 +4,7 @@ import org.openhab.model.script.actions.*
 
 var Number counter = 1
 var Timer timer_fix = null
-var Timer timer_dyx = null
+var Timer timer_dyn = null
 
 /**
  * This is a demo rule which simulates a real dimmer by reacting to increase/decrease commands 
