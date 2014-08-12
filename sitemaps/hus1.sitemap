@@ -16,7 +16,7 @@ sitemap demo label="Main Menu"
 				Chart item=Weather_Chart period=h refresh=600 visibility=[Weather_Chart_Period==0, Weather_Chart_Period=="Uninitialized"]
 				Chart item=Weather_Chart period=D refresh=3600 visibility=[Weather_Chart_Period==1]
 				Chart item=Weather_Chart period=W refresh=3600 visibility=[Weather_Chart_Period==2]
-				Chart item=Weather_Chart period=m refresh=3600 visibility=[Weather_Chart_Period==3]
+				Chart item=Weather_Chart period=M refresh=3600 visibility=[Weather_Chart_Period==3]
 			}
 		}
                 Text item=wp0
