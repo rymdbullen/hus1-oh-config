@@ -23,8 +23,8 @@ sitemap demo label="Main Menu"
                 Text item=wp1
                 Text item=wp2
 	}
-	Frame label="Hus1 Multimedia" {
-                Text label="Cameras" icon="video" {
+	Frame label="Multimedia" {
+                Text label="Cameras" icon="webcam" {
                        Frame label="ipcam_fix" {
                            Image url="@@IPCAM_FIX@@" refresh=3000
                        }
@@ -40,10 +40,13 @@ sitemap demo label="Main Menu"
                 }
         }
         Frame label="Presence" {
-                Group item=gPresence label="Presence"
-        }
-        Frame label="Motion Alarms" {
-                Group item=gAlarm label="Motion Alarms"
+                Text label="Presence" icon="present" {
+                        Frame label="Radio Control"  {
+                                Group item=gPresence label="Presence" icon="present"
+                                Webview url="https://hus1.noip.me/static/map.html"  height=12
+                        }
+                }
+                Group item=gAlarm label="Motion Alarms" icon="motion"
         }
         Frame label="Date" {
                 Text item=Date

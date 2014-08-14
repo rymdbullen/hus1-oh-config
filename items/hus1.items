@@ -25,14 +25,15 @@ Group:Switch:OR(ON, OFF)           Heating        "No. of Active Heatings [(%d)]
 Group:Number:AVG                   Temperature    "Avg. Room Temperature [%.1f °C]"    <temperature>    (Status)
 Group:Contact:OR(OPEN, CLOSED)     Windows        "Open windows [(%d)]"                <contact>        (All)
 
-Switch ipcam_fix     "Alarm ipcam_fix" (gAlarm)
-Switch ipcam_dyn     "Alarm ipcam_dyn" (gAlarm)
+Switch  ipcam_fix     "Alarm ipcam_fix" (gAlarm)
+Switch  ipcam_dyn     "Alarm ipcam_dyn" (gAlarm)
 
-Switch  PresenceJan_PhoneMqttHome   "Jan @ Home"    (gPresence)  { mqttitude="mosquitto:owntracks/ser_owntrack/1c614c3ef834b9ce:lausanne" }
-Switch  PresenceJan_PhoneMqttHus1   "Jan @ Hus1"    (gPresence)  { mqttitude="mosquitto:owntracks/ser_owntrack/1c614c3ef834b9ce:hus1" }
-Switch  PresenceJan_PhoneMqttWork   "Jan @ Work"    (gPresence)  { mqttitude="mosquitto:owntracks/ser_owntrack/1c614c3ef834b9ce:jan_jobb" }
-Switch  PresenceJan_PhoneMqttGachet "Jan @ Gachet"  (gPresence)  { mqttitude="mosquitto:owntracks/ser_owntrack/1c614c3ef834b9ce:gachet" }
-Switch  PresenceJan_PhoneMqttMontriond "Jan @ Montriond"  (gPresence)  { mqttitude="mosquitto:owntracks/ser_owntrack/1c614c3ef834b9ce:montriond" }
+Switch  PresenceJan_PhoneMqttHome   "Jan @ Home"    (gPresence)  { mqttitude="mosquitto:/owntracks/ser_owntrack/1c614c3ef834b9ce:lausanne" }
+Switch  PresenceJan_PhoneMqttHus1   "Jan @ Hus1"    (gPresence)  { mqttitude="mosquitto:/owntracks/ser_owntrack/1c614c3ef834b9ce:hus1" }
+Switch  PresenceJan_PhoneMqttWork   "Jan @ Work"    (gPresence)  { mqttitude="mosquitto:/owntracks/ser_owntrack/1c614c3ef834b9ce:jan_jobb" }
+Switch  PresenceJan_PhoneMqttGachet "Jan @ Gachet"  (gPresence)  { mqttitude="mosquitto:/owntracks/ser_owntrack/1c614c3ef834b9ce:gachet" }
+Switch  PresenceJan_PhoneMqttMontriond "Jan @ Montriond"  (gPresence)  { mqttitude="mosquitto:/owntracks/ser_owntrack/1c614c3ef834b9ce:montriond" }
+String  Location_Jan_Phone                                       { mqtt="<[mosquitto:/owntracks/ser_owntrack/1c614c3ef834b9ce:state:JS(mqttitude-coordinates.js)]" }
 
 /* hus1 */
 Number  Temperature_Outside4in1 "Philio 4in1 Temperature [%.1f °C]"             <temperature>  (GH_Living,Temperature) { zwave="7:1:command=sensor_multilevel,sensor_type=1" }
@@ -41,26 +42,26 @@ Contact Motion_Outside4in1      "Philio 4in1 Motion [MAP(en.map):%s]"           
 Contact Contact_Outside4in1     "Philio 4in1 Door [MAP(en.map):%s]"             <frontdoor>    (GH_Living)             { zwave="7:1:command=sensor_binary,sensor_type=10" }
 Number  Battery_Outside4in1     "Philio 4in1 Battery [%s %%]"                                  (GH_Living)             { zwave="7:1:command=battery" }
 
-Contact cKitchen_flood          "Kitchen EverSpring Flood [MAP(en.map):%s]"     <water>        (GH_Kitchen)            { zwave="2:command=sensor_binary" }
-Number  Battery_Kitchen_flood   "Kitchen EverSpring Flood Battery [%s %%]"                     (GH_Kitchen)            { zwave="2:command=battery" }
+Contact Flood_Kitchen           "Flood [MAP(en.map):%s]"          <water>       (GH_Kitchen)            { zwave="2:command=sensor_binary" }
+Number  Battery_Flood_Kitchen   "Flood Battery [%s %%]"                         (GH_Kitchen)            { zwave="2:command=battery" }
 
-Contact Detector_Fire_Kitchen   "Kitchen Fibaro Fire Detector [MAP(en.map):%s]" <fire>         (GH_Kitchen)            { zwave="8:command=sensor_binary" }
-Number  Battery_Fire_Kitchen    "Kitchen Fibaro Fire Detector Battery [%s %%]"                 (GH_Kitchen)            { zwave="8:command=battery" }
+Contact Detector_Fire_Kitchen   "Fire Detector [MAP(en.map):%s]"  <fire>        (GH_Kitchen)            { zwave="8:command=sensor_binary" }
+Number  Battery_Fire_Kitchen    "Fire Detector Battery [%s %%]"                 (GH_Kitchen)            { zwave="8:command=battery" }
 
 
 /* Lights */
-Switch Light_Outdoor_Pool            "Pool Spotlight"  (Outdoor, Lights)
-Switch Light_Outdoor_Terrace         "Terrace"         (Outdoor, Lights)
-Switch Light_Outdoor_Frontdoor       "Frontdoor"       (Outdoor, Lights)
+Switch Light_Outdoor_Pool            "Pool Spotlight"                           (Outdoor, Lights)
+Switch Light_Outdoor_Terrace         "Terrace"                                  (Outdoor, Lights)
+Switch Light_Outdoor_Frontdoor       "Frontdoor"                                (Outdoor, Lights)
 
 /* Heating */
-Switch Heating_GH_Corridor           "GH Corridor"     <heating>    (GH_Corridor, Heating)
+Switch Heating_GH_Corridor           "GH Corridor"                <heating>     (GH_Corridor, Heating)
 
 
 /* Rollershutters */
 Switch Shutter_all (Shutters)
 
-Rollershutter Shutter_GH_Terrace     "Terrace Blind"    (Outdoor, Shutters)
+Rollershutter Shutter_GH_Terrace     "Terrace Blind"                            (Outdoor, Shutters)
 
 
 /* Windows */

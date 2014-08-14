@@ -33,6 +33,10 @@
 
 	<logger name="org.openhab" level="INFO"/>
 
+	<logger name="org.openhab.binding.zwave" level="DEBUG"/>
+	<logger name="org.openhab.binding.mqtt" level="DEBUG"/>
+	<logger name="org.openhab.binding.mqttitude" level="DEBUG"/>
+
 	<!-- this class gives an irrelevant warning at startup -->
 	<logger name="org.atmosphere.cpr.AtmosphereFramework" level="ERROR" />
 
