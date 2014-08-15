@@ -7,7 +7,7 @@ Group Shutters          (All)
 Group Weather           (All)
 Group Status            (All)
 
-Group GH_Living      "Living Room"     <video>        (gH)
+Group GH_Living      "Living Room"     <livingroom2>  (gH)
 Group GH_Kitchen     "Kitchen"         <kitchen>      (gH)
 Group GH_Toilet      "Toilet"          <bath>         (gH)
 Group GH_Dusch       "Dusch"           <bath>         (gH)
