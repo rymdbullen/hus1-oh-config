@@ -26,10 +26,10 @@ sitemap demo label="Main Menu"
 	Frame label="Multimedia" {
                 Text label="Cameras" icon="webcam" {
                        Frame label="ipcam_fix" {
-                           Image url="http://192.168.1.18/snapshot.cgi?user=ser_foscam&pwd=orvar888&count=14" refresh=3000
+                           Image url="@@IPCAM_FIX@@" refresh=3000
                        }
                        Frame label="ipcam_dyn" {
-                           Image url="http://192.168.1.19/snapshot.cgi?user=ser_foscam&pwd=orvar888&count=14" refresh=3000
+                           Image url="@@IPCAM_DYN@@" refresh=3000
                        }
                 }
                 Text label="Multimedia" icon="video" {                                                                                                                                                                      
