@@ -37,7 +37,7 @@ if [ ! -f $LOCAL_DIR/openhab.cfg ]; then
   echo "${LOCAL_DIR}/openhab.cfg doesn't exist"
   exit 1
 fi
-L
+
 echo "Config for the connection: $CONNECTION" >&2
 echo "Config for the IPCAM_FIX_URL: $IPCAM_FIX_URL" >&2
 echo "Config for the IPCAM_DYN_URL: $IPCAM_DYN_URL" >&2
@@ -47,7 +47,7 @@ git pull
 
 # copy to staging dir
 echo "copy to staging dir '$TEMP_DIR'"
-rsync -avz --exclude '.git' -e $SSH_CMD "$LOCAL_DIR" "$TEMP_DIR"
+rsync -avz --exclude '.git' "$LOCAL_DIR" "$TEMP_DIR"
 
 sed -i "s/@@IPCAM_FIX_URL@@/$IPCAM_FIX_URL/g" $TEMP_DIR/sitemaps/hus1.sitemap
 sed -i "s/@@IPCAM_DYN_URL@@/$IPCAM_DYN_URL/g" $TEMP_DIR/sitemaps/hus1.sitemap
@@ -57,8 +57,8 @@ sed -i "s/@@MQTT_USER@@/${MQTT_USER}/g" $TEMP_DIR/openhab.cfg
 sed -i "s/@@MQTT_PWD@@/${MQTT_PWD}/g" $TEMP_DIR/openhab.cfg
 
 
-echo "Executing: sync -avz -e $SSH_CMD \"$TEMP_DIR\" $CONNECTION:\"$REMOTE_DIR\""
-rsync -avz --exclude '.git' -e $SSH_CMD "$TEMP_DIR" $CONNECTION:"$REMOTE_DIR"
+echo "Executing: rsync -avz --exclude '.git' -e $SSH_CMD \"$TEMP_DIR\" $CONNECTION:\"$REMOTE_DIR\""
+rsync -avz --exclude '.git' -e $SSH_CMD "$TEMP_DIR/" $CONNECTION:"$REMOTE_DIR"
 
 rm -rf $TEMP_DIR
 
