@@ -9,6 +9,7 @@
 # MQTT_USER="mqtt username"
 # MQTT_PWD="mqtt password"
 #
+TEMP_DIR=`mktemp -d`
 CONFIG_FILE="../cool.cfg"
 if [ ! -f $CONFIG_FILE ]; then
   echo "${CONFIG_FILE} doesn't exist"
@@ -36,7 +37,7 @@ if [ ! -f $LOCAL_DIR/openhab.cfg ]; then
   echo "${LOCAL_DIR}/openhab.cfg doesn't exist"
   exit 1
 fi
-
+L
 echo "Config for the connection: $CONNECTION" >&2
 echo "Config for the IPCAM_FIX_URL: $IPCAM_FIX_URL" >&2
 echo "Config for the IPCAM_DYN_URL: $IPCAM_DYN_URL" >&2
@@ -44,16 +45,21 @@ echo "Config for the IPCAM_DYN_URL: $IPCAM_DYN_URL" >&2
 cd $LOCAL_DIR
 git pull
 
-echo "Executing: sync -avz -e $SSH_CMD \"$LOCAL_DIR\" $CONNECTION:\"$REMOTE_DIR\""
-rsync -avz --exclude '.git' -e $SSH_CMD "$LOCAL_DIR" $CONNECTION:"$REMOTE_DIR"
+# copy to staging dir
+echo "copy to staging dir '$TEMP_DIR'"
+rsync -avz --exclude '.git' -e $SSH_CMD "$LOCAL_DIR" "$TEMP_DIR"
 
-#ssh $CONNECTION "sed -i 's/@@IPCAM_FIX@@/http:\/\/192.168.1.18\/snapshot.cgi?user=ser_foscam\&pwd=orvar888\&count=14/g' $REMOTE_DIR/sitemaps/hus1.sitemap"
-ssh $CONNECTION "sed -i 's/@@IPCAM_FIX@@/$IPCAM_FIX_URL/g' $REMOTE_DIR/sitemaps/hus1.sitemap"
-#ssh $CONNECTION "sed -i 's/@@IPCAM_DYN@@/http:\/\/192.168.1.19\/snapshot.cgi?user=ser_foscam\&pwd=orvar888\&count=14/g' $REMOTE_DIR/sitemaps/hus1.sitemap"
-ssh $CONNECTION "sed -i 's/@@IPCAM_DYN@@/$IPCAM_DYN_URL/g' $REMOTE_DIR/sitemaps/hus1.sitemap"
+sed -i "s/@@IPCAM_FIX_URL@@/$IPCAM_FIX_URL/g" $TEMP_DIR/sitemaps/hus1.sitemap
+sed -i "s/@@IPCAM_DYN_URL@@/$IPCAM_DYN_URL/g" $TEMP_DIR/sitemaps/hus1.sitemap
+sed -i "s/@@HOST@@/$HOST/g" $TEMP_DIR/sitemaps/hus1.sitemap
 
-#ssh $CONNECTION "sed -i -e \"\\\$a${OH_USER}\" $REMOTE_DIR/users.cfg"
-ssh $CONNECTION "sed -i -e 's/@@MQTT_USER@@/${MQTT_USER}/g' $REMOTE_DIR/openhab.cfg"
-ssh $CONNECTION "sed -i -e 's/@@MQTT_PWD@@/${MQTT_PWD}/g' $REMOTE_DIR/openhab.cfg"
+sed -i "s/@@MQTT_USER@@/${MQTT_USER}/g" $TEMP_DIR/openhab.cfg
+sed -i "s/@@MQTT_PWD@@/${MQTT_PWD}/g" $TEMP_DIR/openhab.cfg
+
+
+echo "Executing: sync -avz -e $SSH_CMD \"$TEMP_DIR\" $CONNECTION:\"$REMOTE_DIR\""
+rsync -avz --exclude '.git' -e $SSH_CMD "$TEMP_DIR" $CONNECTION:"$REMOTE_DIR"
+
+rm -rf $TEMP_DIR
 
 cd -
