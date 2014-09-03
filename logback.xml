@@ -9,11 +9,10 @@
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<file>${openhab.logdir:-logs}/openhab.log</file>
                 <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                        <!-- weekly rollover and archiving -->
-                        <!-- <fileNamePattern>events-%d{yyyy-ww}.log.zip</fileNamePattern> -->
-                        <fileNamePattern>${openhab.logdir:-logs}/openhab.%d.log.gz</fileNamePattern>           
+                        <!-- daily rollover and archiving -->
+                        <fileNamePattern>${openhab.logdir:-logs}/openhab-%d{yyyy-MM-dd}.log.gz</fileNamePattern>           
                         <!-- keep 30 days' worth of history -->
-                        <maxHistory>4</maxHistory>
+                        <maxHistory>30</maxHistory>
                 </rollingPolicy>
 		<encoder>
 			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{30}[:%line] %msg%n%ex{5}</pattern>
@@ -23,7 +22,7 @@
 	<appender name="EVENTFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${openhab.logdir:-logs}/events.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<!-- weekly rollover and archiving -->
+			<!-- daily rollover and archiving -->
 			<fileNamePattern>${openhab.logdir:-logs}/events-%d{yyyy-MM-dd}.log.zip</fileNamePattern>
 			<!-- keep 30 days' worth of history -->
 			<maxHistory>30</maxHistory>
