@@ -9,12 +9,8 @@
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<file>${openhab.logdir:-logs}/openhab.log</file>
                 <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                        <!-- daily rollover -->
-                        <fileNamePattern>${openhab.logdir:-logs}/openhab.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
-                        <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                                <!-- or whenever the file size reaches 5MB -->
-                                <maxFileSize>5MB</maxFileSize>
-                        </timeBasedFileNamingAndTriggeringPolicy>
+                        <!-- daily rollover and archiving -->
+                        <fileNamePattern>${openhab.logdir:-logs}/openhab-%d{yyyy-MM-dd}.log.zip</fileNamePattern>
                         <!-- keep 30 days' worth of history -->
                         <maxHistory>30</maxHistory>
                 </rollingPolicy>
