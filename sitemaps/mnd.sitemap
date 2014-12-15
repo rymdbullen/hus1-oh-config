@@ -5,9 +5,9 @@ sitemap demo label="Main Menu"
 		Text           item=XbmcLiving_Title                               icon="video"
                 Slider         item=XbmxLiving_Volume step=10                      icon="sound"
                 Switch         item=Toggle_2                                       label="TV"
-                Colorpicker    item=Color_1           visibility=[Toggle_1==ON]    label="Bedroom Light Color"
-                Slider         item=Dimm_1            visibility=[Toggle_1==ON]    label="Bedroom Brightness" 
-                Slider         item=CT_Dimm_1         visibility=[Toggle_1==ON]    label="Bedroom Color Temperature"
+                Colorpicker    item=Color_2           visibility=[Toggle_2==ON]    label="TV Light Color"
+                Slider         item=Dimm_2            visibility=[Toggle_2==ON]    label="TV Brightness" 
+                Slider         item=CT_Dimm_2         visibility=[Toggle_2==ON]    label="TV Color Temperature"
 	}
 	Frame label="Weather" {
 		Text item=Weather_Temperature valuecolor=[Weather_LastUpdate=="Uninitialized"="lightgray",Weather_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {

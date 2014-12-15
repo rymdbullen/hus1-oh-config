@@ -58,7 +58,7 @@ function replace() {
            RE1=${BASH_REMATCH[1]}
            RE2=${BASH_REMATCH[2]}
            RE2=${RE2//[\/]/\\/}
-           RE2=${RE2//[\?]/\\?}
+           RE2=${RE2//[\&]/\\&}
 
 #           echo "find $TEMP_DIR -type f -print0 | xargs -0 sed -i \"s/@@${RE1}@@/${RE2}/g\""
            find $TEMP_DIR -type f -print0       | xargs -0 sed -i  "s/@@${RE1}@@/${RE2}/g"
