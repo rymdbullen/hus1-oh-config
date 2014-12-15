@@ -1,8 +1,10 @@
 sitemap demo label="Main Menu"
 {
 	Frame {
-		Group item=gH  label="Hus1" icon="house"
+		Group item=gH  label="Montriond" icon="house"
 		Group item=Outdoor icon="garden" 
+		Slider item=Light_Outdoor_Pool
+                
 	}
 	Frame label="Weather" {
 		Text item=Weather_Temperature valuecolor=[Weather_LastUpdate=="Uninitialized"="lightgray",Weather_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
