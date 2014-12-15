@@ -60,7 +60,7 @@ function replace() {
            RE2=${RE2//[\/]/\\/}
            RE2=${RE2//[\?]/\\?}
 
-           echo "find $TEMP_DIR -type f -print0 | xargs -0 sed -i \"s/@@${RE1}@@/${RE2}/g\""
+#           echo "find $TEMP_DIR -type f -print0 | xargs -0 sed -i \"s/@@${RE1}@@/${RE2}/g\""
            find $TEMP_DIR -type f -print0       | xargs -0 sed -i  "s/@@${RE1}@@/${RE2}/g"
         fi 
     fi 
