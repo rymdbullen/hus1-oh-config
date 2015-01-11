@@ -8,6 +8,12 @@
 
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<file>${openhab.logdir:-logs}/openhab.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <!-- daily rollover and archiving -->
+                        <fileNamePattern>${openhab.logdir:-logs}/openhab-%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+                        <!-- keep 30 days' worth of history -->
+                        <maxHistory>30</maxHistory>
+                </rollingPolicy>
 		<encoder>
 			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{30}[:%line] %msg%n%ex{5}</pattern>
 		</encoder>
@@ -16,7 +22,7 @@
 	<appender name="EVENTFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${openhab.logdir:-logs}/events.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<!-- weekly rollover and archiving -->
+			<!-- daily rollover and archiving -->
 			<fileNamePattern>${openhab.logdir:-logs}/events-%d{yyyy-MM-dd}.log.zip</fileNamePattern>
 			<!-- keep 30 days' worth of history -->
 			<maxHistory>30</maxHistory>
@@ -32,6 +38,10 @@
 	</logger>
 
 	<logger name="org.openhab" level="INFO"/>
+
+	<logger name="org.openhab.binding.zwave" level="DEBUG"/>
+	<logger name="org.openhab.binding.mqtt" level="DEBUG"/>
+	<logger name="org.openhab.binding.mqttitude" level="DEBUG"/>
 
 	<!-- this class gives an irrelevant warning at startup -->
 	<logger name="org.atmosphere.cpr.AtmosphereFramework" level="ERROR" />
