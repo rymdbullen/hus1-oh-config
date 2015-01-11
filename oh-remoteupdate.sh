@@ -10,9 +10,22 @@
 # MQTT_PWD="mqtt password"
 #
 
-# Staging area
+# Setting up a staging area
 TEMP_DIR=`mktemp -d`
-CONFIG_FILE="../cool.cfg@montriond"
+
+TARGET=${1:-notspecified}
+if [ "${TARGET}" == "notspecified" ]; then
+    if [ -f target_env ]; then
+        source target_env
+    fi
+fi
+echo "${TARGET}" | grep --extended-regexp "hus1|mnd|local" > /dev/null
+TARGET_VERIFIED=$?
+if [[ ! $TARGET_VERIFIED -eq 0 ]]; then
+    echo "Target '${TARGET}' does not exist, exiting!"
+    exit 1
+fi
+CONFIG_FILE="../cool.cfg@${TARGET}"
 if [ ! -f $CONFIG_FILE ]; then
   echo "${CONFIG_FILE} doesn't exist"
   exit 1
@@ -20,7 +33,7 @@ fi
 source $CONFIG_FILE
 
 SSH_CMD='ssh '
-LOCAL_DIR="./"
+LOCAL_DIR="./configurations"
 CONNECTION="${USER}@${HOST}"
 
 if [ ! -d $LOCAL_DIR/persistence ]; then
@@ -44,7 +57,6 @@ echo "Config for the connection: $CONNECTION" >&2
 echo "Config for the IPCAM_FIX_URL: $IPCAM_FIX_URL" >&2
 echo "Config for the IPCAM_DYN_URL: $IPCAM_DYN_URL" >&2
 
-cd $LOCAL_DIR
 git pull
 
 # copy to staging dir
@@ -75,5 +87,3 @@ echo "Executing: rsync -avz --exclude '.git' -e $SSH_CMD \"$TEMP_DIR\" $CONNECTI
 rsync -avz --exclude '.git' -e $SSH_CMD "$TEMP_DIR/" $CONNECTION:"$REMOTE_DIR"
 
 rm -rf $TEMP_DIR
-
-cd -
