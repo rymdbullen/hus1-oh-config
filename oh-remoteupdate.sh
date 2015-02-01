@@ -9,13 +9,15 @@
 # MQTT_USER="mqtt username"
 # MQTT_PWD="mqtt password"
 #
+
+# Staging area
 TEMP_DIR=`mktemp -d`
-CONFIG_FILE="../cool.cfg"
+CONFIG_FILE="../cool.cfg@hus1"
 if [ ! -f $CONFIG_FILE ]; then
   echo "${CONFIG_FILE} doesn't exist"
   exit 1
 fi
-source ../cool.cfg
+source $CONFIG_FILE
 
 SSH_CMD='ssh '
 LOCAL_DIR="./"
@@ -47,14 +49,26 @@ git pull
 
 # copy to staging dir
 echo "copy to staging dir '$TEMP_DIR'"
-rsync -avz --exclude '.git' "$LOCAL_DIR" "$TEMP_DIR"
+rsync -avz --quiet --exclude '.git' "$LOCAL_DIR" "$TEMP_DIR"
 
-sed -i "s/@@IPCAM_FIX_URL@@/$IPCAM_FIX_URL/g" $TEMP_DIR/sitemaps/hus1.sitemap
-sed -i "s/@@IPCAM_DYN_URL@@/$IPCAM_DYN_URL/g" $TEMP_DIR/sitemaps/hus1.sitemap
-sed -i "s/@@HOST@@/$HOST/g" $TEMP_DIR/sitemaps/hus1.sitemap
+function replace() {
+    langRegex='(.*)=\"(.*)"'
+    if [[ ! $1 == \#* ]]; then
+        if [[ $1 =~ $langRegex ]]; then
+           RE1=${BASH_REMATCH[1]}
+           RE2=${BASH_REMATCH[2]}
+           RE2=${RE2//[\/]/\\/}
+           RE2=${RE2//[\&]/\\&}
 
-sed -i "s/@@MQTT_USER@@/${MQTT_USER}/g" $TEMP_DIR/openhab.cfg
-sed -i "s/@@MQTT_PWD@@/${MQTT_PWD}/g" $TEMP_DIR/openhab.cfg
+#           echo "find $TEMP_DIR -type f -print0 | xargs -0 sed -i \"s/@@${RE1}@@/${RE2}/g\""
+           find $TEMP_DIR -type f -print0       | xargs -0 sed -i  "s/@@${RE1}@@/${RE2}/g"
+        fi 
+    fi 
+}
+
+while read p; do
+    replace $p
+done <$CONFIG_FILE
 
 
 echo "Executing: rsync -avz --exclude '.git' -e $SSH_CMD \"$TEMP_DIR\" $CONNECTION:\"$REMOTE_DIR\""
