@@ -28,12 +28,12 @@ Group:Contact:OR(OPEN, CLOSED)     Windows        "Open windows [(%d)]"         
 Switch ipcam_fix     "Alarm ipcam_fix" (gAlarm)
 Switch ipcam_dyn     "Alarm ipcam_dyn" (gAlarm)
 
-Switch  PresenceJan_PhoneMqttHome   "Jan @ Home"    (gPresence)        { mqttitude="mosquitto:owntracks/ser_owntrack/76cd91f4b19161c:lausanne" }
-Switch  PresenceJan_PhoneMqttHus1   "Jan @ Hus1"    (gPresence)        { mqttitude="mosquitto:owntracks/ser_owntrack/76cd91f4b19161c:hus1" }
-Switch  PresenceJan_PhoneMqttWork   "Jan @ Work"    (gPresence)        { mqttitude="mosquitto:owntracks/ser_owntrack/76cd91f4b19161c:jan_jobb" }
-Switch  PresenceJan_PhoneMqttGachet "Jan @ Gachet"  (gPresence)        { mqttitude="mosquitto:owntracks/ser_owntrack/76cd91f4b19161c:gachet" }
-Switch  PresenceJan_PhoneMqttMontriond "Jan @ Montriond"  (gPresence)  { mqttitude="mosquitto:owntracks/ser_owntrack/76cd91f4b19161c:montriond" }
-String  Location_Jan_Phone                                                { mqtt="<[mosquitto:owntracks/ser_owntrack/76cd91f4b19161c:state:JS(mqttitude-coordinates.js)]" }
+Switch  PresenceJan_PhoneMqttHome   "Jan @ Home"    (gPresence)        { mqttitude="mosquitto:owntracks/ser_owntrack/ad5c9386d892ac1:lausanne" }
+Switch  PresenceJan_PhoneMqttHus1   "Jan @ Hus1"    (gPresence)        { mqttitude="mosquitto:owntracks/ser_owntrack/ad5c9386d892ac1:hus1" }
+Switch  PresenceJan_PhoneMqttWork   "Jan @ Work"    (gPresence)        { mqttitude="mosquitto:owntracks/ser_owntrack/ad5c9386d892ac1:jan_jobb" }
+Switch  PresenceJan_PhoneMqttGachet "Jan @ Gachet"  (gPresence)        { mqttitude="mosquitto:owntracks/ser_owntrack/ad5c9386d892ac1:gachet" }
+Switch  PresenceJan_PhoneMqttMontriond "Jan @ Montriond"  (gPresence)  { mqttitude="mosquitto:owntracks/ser_owntrack/ad5c9386d892ac1:montriond" }
+String  Location_Jan_Phone                                                { mqtt="<[mosquitto:owntracks/ser_owntrack/ad5c9386d892ac1:state:JS(mqttitude-coordinates.js)]" }
 
 /* hus1 */
 Number  Temperature_Outside4in1 "Temperature [%.1f °C]"    <temperature>  (GH_Bed_Master,Temperature) { zwave="7:1:command=sensor_multilevel,sensor_type=1" }
