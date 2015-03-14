@@ -18,7 +18,7 @@ sitemap demo label="Main Menu"
 				Chart item=Weather_Chart period=h refresh=600 visibility=[Weather_Chart_Period==0, Weather_Chart_Period=="Uninitialized"]
 				Chart item=Weather_Chart period=D refresh=3600 visibility=[Weather_Chart_Period==1]
 				Chart item=Weather_Chart period=W refresh=3600 visibility=[Weather_Chart_Period==2]
-				Chart item=Weather_Chart period=m refresh=3600 visibility=[Weather_Chart_Period==3]
+				Chart item=Weather_Chart period=M refresh=3600 visibility=[Weather_Chart_Period==3]
 			}
 		}
                 Text item=wp0
@@ -28,10 +28,10 @@ sitemap demo label="Main Menu"
 	Frame label="Hus1 Multimedia" {
                 Text label="Cameras" icon="video" {
                        Frame label="ipcam_fix" {
-                           Image url="@@IPCAM_FIX@@" refresh=3000
+                           Image url="@@IPCAM_FIX_URL@@" refresh=3000
                        }
                        Frame label="ipcam_dyn" {
-                           Image url="@@IPCAM_DYN@@" refresh=3000
+                           Image url="@@IPCAM_DYN_URL@@" refresh=3000
                        }
                 }
                 Text label="Multimedia" icon="video" {                                                                                                                                                                      

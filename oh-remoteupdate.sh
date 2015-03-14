@@ -35,6 +35,7 @@ source $CONFIG_FILE
 
 SSH_CMD='ssh '
 LOCAL_DIR="./configurations"
+WEBAPPS_DIR="./webapps"
 CONNECTION="${USER}@${HOST}"
 
 if [ ! -d $LOCAL_DIR/persistence ]; then
@@ -61,8 +62,8 @@ echo "Config for the IPCAM_DYN_URL: $IPCAM_DYN_URL" >&2
 git pull
 
 # copy to staging dir
-echo "copy to staging dir '$TEMP_DIR'"
-rsync -avz --quiet --exclude '.git' "$LOCAL_DIR" "$TEMP_DIR"
+echo "copy to staging dir '$TEMP_DIR': ${LOCAL_DIR}"
+rsync -avz --quiet --exclude '.git' "${LOCAL_DIR}" "${TEMP_DIR}"
 
 function replace() {
     langRegex='(.*)=\"(.*)"'
@@ -83,8 +84,10 @@ while read p; do
     replace $p
 done <$CONFIG_FILE
 
+echo "copy to staging dir '$TEMP_DIR': ${WEBAPPS_DIR}"
+rsync -avz --quiet --exclude '.git' "$WEBAPPS_DIR" "${TEMP_DIR}"
 
-echo "Executing: rsync -avz --exclude '.git' -e $SSH_CMD \"$TEMP_DIR\" $CONNECTION:\"$REMOTE_DIR\""
+echo "Executing: rsync -avz --exclude '.git' -e ${SSH_CMD} \"${TEMP_DIR}/\" ${CONNECTION}:\"${REMOTE_DIR}\""
 rsync -avz --exclude '.git' -e $SSH_CMD "$TEMP_DIR/" $CONNECTION:"$REMOTE_DIR"
 
 rm -rf $TEMP_DIR
