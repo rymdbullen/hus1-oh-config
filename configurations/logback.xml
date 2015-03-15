@@ -39,7 +39,7 @@
 
 	<logger name="org.openhab" level="INFO"/>
 
-	<logger name="org.openhab.binding.zwave" level="DEBUG"/>
+	<!--logger name="org.openhab.binding.zwave" level="DEBUG"/-->
 	<logger name="org.openhab.binding.mqtt" level="DEBUG"/>
 	<logger name="org.openhab.binding.mqttitude" level="DEBUG"/>
 
