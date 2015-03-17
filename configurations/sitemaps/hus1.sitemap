@@ -44,6 +44,13 @@ sitemap demo label="Main Menu"
         Frame label="Presence" {
                 Group item=gPresence label="Presence"
         }
+        Frame label="Location" {
+                Text label="GeoLocation" icon="location" {
+                        Frame label="Location" {
+                                Webview url="https://hus1.noip.me/static/map.html" height=12
+                        }
+                }
+        }
         Frame label="Motion Alarms" {
                 Group item=gAlarm label="Motion Alarms"
         }
