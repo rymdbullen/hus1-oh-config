@@ -91,6 +91,6 @@ echo "Executing: rsync -avz --exclude '.git' -e ${SSH_CMD} \"${TEMP_DIR}/\" ${CO
 rsync -avz --exclude '.git' -e $SSH_CMD "$TEMP_DIR/" $CONNECTION:/opt/openhab
 
 ssh ${CONNECTION} 'bash -s' < link-addons.sh
-ssh ${CONNECTION} chmod 755 /opt/oh-1.6.2/
+ssh ${CONNECTION} chmod 755 /opt/oh-1.7.0/
 
 rm -rf $TEMP_DIR
