@@ -89,16 +89,9 @@ DateTime Weather_LastUpdate     "Last Update [%1$ta %1$tR]"       <clock>
 /* NTP binding demo item */
 DateTime        Date            "Date [%1$tA, %1$td.%1$tm.%1$tY]" <calendar>                     { ntp="Europe/Paris:fr_FR" }
 
-/* Demo items */
-Switch DemoSwitch               "Switch"
-Dimmer DimmedLight              "Dimmer [%d %%]"                  <slider>
-Color  RGBLight                 "RGB Light"                       <slider>
-Rollershutter DemoShutter       "Roller Shutter"
-Dimmer DemoBlinds               "Blinds [%d %%]"                  <rollershutter>
-Number Scene_General            "Scene"                           <sofa>
-Number Radio_Station            "Radio"                           <network>
-Dimmer Volume                   "Volume [%.1f %%]"
-Number Temperature_Setpoint     "Temperature [%.1f °C]" <temperature>
+Group gMobiles
+Switch Presence
+Switch mobile_tuss (gMobiles) {nh="android-b172e9d29bcf279e"}
+Switch mobile_jan  (gMobiles) {nh="android-ad5c9386d892ac1"}
+Switch mobile_my   (gMobiles) {nh="android-35e92a8bc6353acd"}
 
-String UnknownDevices    "Unknown Devices in Range: [%s]" { bluetooth="?" }
-Number NoOfPairedDevices "Paired Devices in Range: [%d]"  { bluetooth="!" }

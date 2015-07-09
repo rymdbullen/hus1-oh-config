@@ -18,5 +18,5 @@ Items {
 	// * : strategy = everyChange, everyDay, restoreOnStartup
 	
 	// persist all temperature and weather values at every change and every hour
-	Temperature*, Weather*, gAlarm : strategy = everyChange, everyHour
+	Temperature*, Weather*, ipcam_* : strategy = everyChange, everyHour
 }
