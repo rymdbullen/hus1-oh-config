@@ -55,9 +55,9 @@ if [ ! -f $LOCAL_DIR/openhab.cfg ]; then
   exit 1
 fi
 
-echo "Config for the connection: $CONNECTION" >&2
-echo "Config for the IPCAM_FIX_URL: $IPCAM_FIX_URL" >&2
-echo "Config for the IPCAM_DYN_URL: $IPCAM_DYN_URL" >&2
+echo "Replacing connection: $CONNECTION" >&2
+echo "Replacing IPCAM_FIX_URL: $IPCAM_FIX_URL" >&2
+echo "Replacing IPCAM_DYN_URL: $IPCAM_DYN_URL" >&2
 
 git pull
 
