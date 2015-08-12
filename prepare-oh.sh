@@ -9,11 +9,22 @@ INSTALL_HABMIN=${INSTALL_HABMIN:-true}
 HABMIN_VERSION=${HABMIN_VERSION:-master}
 ZIP_FILE_HABMIN="habmin.zip"
 DL_DIR="/root"
+CURL_DL_CMD="curl --silent -k -L"
 
 BASE_DIR="$(dirname "$(readlink -f "$0")")"
 URL=$(curl --silent -kIXGET https://github.com/openhab/openhab/releases/latest | grep Location)
 AFTER_SLASH=$(basename "$URL" | tr -d '\r')
 VERSION_OH=${AFTER_SLASH:1}
+
+echo ""
+echo "Version found: ${VERSION_OH}"
+echo ""
+
+
+if [ -d /opt/oh-${VERSION_OH} ]; then
+    echo "Doing nothing: /opt/oh-${VERSION_OH} already exist"
+    exit 0
+fi
 
 if [ "${HABMIN_VERSION}" == "master" ]; then
     URL_HABMIN="https://github.com/cdjackson/HABmin/archive/master.zip"
@@ -33,6 +44,12 @@ URL_RUNTIME="${BASE_URL}/${ZIP_FILE_RUNTIME}"
 URL_ADDONS="${BASE_URL}/${ZIP_FILE_ADDONS}"
 URL_GREENT="${BASE_URL}/${ZIP_FILE_GREENT}"
 
+#!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+
 ##
 ## prepare temp dirs
 ##
@@ -44,17 +61,17 @@ mkdir ${TMP_OH_DIR}/addons-available
 ## wget OH
 ##
 if [ ! -f ${DL_DIR}/${ZIP_FILE_RUNTIME} ]; then
-    curl -k -L ${URL_RUNTIME} -o ${DL_DIR}/${ZIP_FILE_RUNTIME}
+    ${CURL_DL_CMD} ${URL_RUNTIME} -o ${DL_DIR}/${ZIP_FILE_RUNTIME}
 fi
 if [ ! -f ${DL_DIR}/${ZIP_FILE_ADDONS} ]; then
-    curl -k -L ${URL_ADDONS} -o ${DL_DIR}/${ZIP_FILE_ADDONS}
+    ${CURL_DL_CMD} ${URL_ADDONS} -o ${DL_DIR}/${ZIP_FILE_ADDONS}
 fi
 if [ ! -f ${DL_DIR}/${ZIP_FILE_GREENT} ]; then
-    curl -k -L ${URL_GREENT} -o ${DL_DIR}/${ZIP_FILE_GREENT}
+    ${CURL_DL_CMD} ${URL_GREENT} -o ${DL_DIR}/${ZIP_FILE_GREENT}
 fi
 if [ "${INSTALL_HABMIN}" == "true" ]; then
   if [ ! -f ${DL_DIR}/${ZIP_FILE_HABMIN} ]; then
-    curl -k -L ${URL_HABMIN} -o ${DL_DIR}/${ZIP_FILE_HABMIN}
+    ${CURL_DL_CMD} ${URL_HABMIN} -o ${DL_DIR}/${ZIP_FILE_HABMIN}
   fi
 fi
 
@@ -98,4 +115,6 @@ fi
 rm ${TMP_OH_DIR}/*.bat
 chown -R openhab:openhab ${TMP_OH_DIR}
 
-cowsay "Done preparing Openhab version ${VERSION_OH} in ${TMP_OH_DIR}"
+mv ${TMP_OH_DIR} /opt/oh-${VERSION_OH}
+
+cowsay "Done preparing Openhab version ${VERSION_OH} in /opt/oh-${VERSION_OH}"
