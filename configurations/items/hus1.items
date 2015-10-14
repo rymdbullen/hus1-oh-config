@@ -28,7 +28,6 @@ Group:Contact:OR(OPEN, CLOSED)     Windows        "Open windows [(%d)]"         
 Switch  ipcam_fix     "Alarm ipcam_fix" (gAlarm)
 Switch  ipcam_dyn     "Alarm ipcam_dyn" (gAlarm)
 
-Switch   PresenceJan_PhoneMqttHome      "Jan @ Home"       (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5:lausanne" }
 Switch   PresenceJan_PhoneMqttHus1      "Jan @ Hus1"       (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5:hus1" }
 Switch   PresenceJan_PhoneMqttWork      "Jan @ Work"       (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5:jan_jobb" }
 Switch   PresenceJan_PhoneMqttGachet    "Jan @ Gachet"     (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5:gachet" }
@@ -42,11 +41,11 @@ Contact  Motion_Outside4in1      "Motion [MAP(en.map):%s]"  <motion>       (GH_B
 Contact  Contact_Outside4in1     "Door [MAP(en.map):%s]"    <frontdoor>    (GH_Bed_Master)             { zwave="7:command=sensor_binary,sensor_type=10" }
 Number   Battery_Outside4in1     "Battery [%s %%]"          <battery2>     (GH_Bed_Master)             { zwave="7:command=battery" }
 
-Contact  Flood_Kitchen           "Flood [MAP(en.map):%s]"               <water>        (GH_Kitchen)                { zwave="2:command=sensor_binary" }
-Number   Battery_Flood_Kitchen   "Flood Battery [%s %%]"                <battery2>     (GH_Kitchen)                { zwave="2:command=battery" }
+Contact  Flood_Kitchen           "Flood [MAP(en.map):%s]"               <water>        (GH_Kitchen)                { zwave="2:1:command=sensor_binary" }
+Number   Battery_Flood_Kitchen   "Flood Battery [%s %%]"                <battery2>     (GH_Kitchen)                { zwave="2:1:command=battery" }
   
-Contact  Detector_Fire_Kitchen   "Fire Detector [MAP(en.map):%s]"       <fire3>        (GH_Kitchen)                { zwave="8:command=sensor_binary" }
-Number   Battery_Fire_Kitchen    "Fire Detector Battery [%s %%]"        <battery2>     (GH_Kitchen)                { zwave="8:command=battery" }
+Contact  Detector_Fire_Kitchen   "Fire Detector [MAP(en.map):%s]"       <fire3>        (GH_Kitchen)                { zwave="8:1:command=sensor_binary" }
+Number   Battery_Fire_Kitchen    "Fire Detector Battery [%s %%]"        <battery2>     (GH_Kitchen)                { zwave="8:1:command=battery" }
 
 
 /* Lights */
@@ -77,15 +76,18 @@ Contact Garage_Door             "Garage Door [MAP(en.map):%s]"                  
 
 
 Group Weather_Chart                                                             (Weather)
-String  wp0                     "Today [%s]"                      <wp0>                          { http="<[http://api.wunderground.com/api/48962d0fa793a388/forecast/q/France/Ollioules.xml:3600000:XSLT(wunderground_icon_forecast_p0.xsl)]"}
-String  wp1                     "Tonight [%s]"                    <wp1>                          { http="<[http://api.wunderground.com/api/48962d0fa793a388/forecast/q/France/Ollioules.xml:3600000:XSLT(wunderground_icon_forecast_p1.xsl)]"}
-String  wp2                     "Tomorrow [%s]"                   <wp2>                          { http="<[http://api.wunderground.com/api/48962d0fa793a388/forecast/q/France/Ollioules.xml:3600000:XSLT(wunderground_icon_forecast_p2.xsl)]"}
-Number  Weather_Temperature     "Outside Temperature [%.1f °C]"   <temperature> (Weather_Chart)  { http="<[http://api.wunderground.com/api/48962d0fa793a388/conditions/q/France/Ollioules.xml:3600000:XSLT(wunderground_conditions.xsl)]" }
-Number  Weather_Humidity        "Outside Humidity [%.1f %%]"      <temperature> (Weather)        { http="<[http://api.wunderground.com/api/48962d0fa793a388/conditions/q/France/Ollioules.json:3600000:JS(getValueHumidity.js)]" }                                     Number  Weather_Humidex         "Humidex [SCALE(humidex.scale):%s]"             (Weather)
+String  Weather_Forecast_0      "Today [%s]"                      <wp0>                          { mqtt="<[mosquitto:/weather/%%WEATHER_LOCATION%%/forecast/0/day/icon:state:default]" }
+String  Weather_Forecast_1      "Tonight [%s]"                    <wp1>                          { mqtt="<[mosquitto:/weather/%%WEATHER_LOCATION%%/forecast/1/night/icon:state:default]" }
+String  Weather_Forecast_2      "Tomorrow day [%s]"               <wp2>                          { mqtt="<[mosquitto:/weather/%%WEATHER_LOCATION%%/forecast/2/day/icon:state:default]" }
+String  Weather_Forecast_3      "Tomorrow night [%s]"             <wp3>                          { mqtt="<[mosquitto:/weather/%%WEATHER_LOCATION%%/forecast/3/night/icon:state:default]" }
+Number  Weather_Temperature     "Outside Temperature [%.1f °C]"   <temperature> (Weather_Chart)  { mqtt="<[mosquitto:/weather/%%WEATHER_LOCATION%%/conditions/temp_c:state:default]" }
+Number  Weather_Humidity        "Outside Humidity [%.1f %%]"      <temperature> (Weather)        { mqtt="<[mosquitto:/weather/%%WEATHER_LOCATION%%/conditions/relative_humidity:state:default]" }
+Number  Weather_Humidex         "Humidex [SCALE(humidex.scale):%s]"             (Weather)
 Number  Weather_Temp_Max        "Todays Maximum [%.1f °C]"        <temperature> (Weather_Chart)
 Number  Weather_Temp_Min        "Todays Minimum [%.1f °C]"        <temperature> (Weather_Chart)
 Number  Weather_Chart_Period    "Chart Period"
 DateTime Weather_LastUpdate     "Last Update [%1$ta %1$tR]"       <clock>
+String  lu                      "Last Update  [%s]"               <clock>                        { mqtt="<[mosquitto:/weather/%%WEATHER_LOCATION%%/conditions/lastupdate_datetime:state:default]" }
 
 /* NTP binding demo item */
 DateTime        Date            "Date [%1$tA, %1$td.%1$tm.%1$tY]" <calendar>                     { ntp="Europe/Paris:fr_FR" }

@@ -10,9 +10,10 @@ sitemap demo label="Main Menu"
 			Frame {
 				Text item=Weather_Temp_Max valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
 				Text item=Weather_Temp_Min valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
-				Text item=Weather_LastUpdate visibility=[Weather_LastUpdate>30] valuecolor=[Weather_LastUpdate>120="orange", Weather_LastUpdate>300="red"]
                                 Text item=Weather_Humidity
                                 Text item=Weather_Humidex
+				Text item=Weather_LastUpdate visibility=[lu>10] valuecolor=[Weather_LastUpdate>120="orange", Weather_LastUpdate>300="red"]
+		                Text item=lu
 			}
 			Frame {
 				Switch item=Weather_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week", 3="Month"]
@@ -22,9 +23,10 @@ sitemap demo label="Main Menu"
 				Chart item=Weather_Chart period=M refresh=3600 visibility=[Weather_Chart_Period==3]
 			}
 		}
-                Text item=wp0
-                Text item=wp1
-                Text item=wp2
+                Text item=Weather_Forecast_0
+                Text item=Weather_Forecast_1
+                Text item=Weather_Forecast_2
+                Text item=Weather_Forecast_3
 	}
 	Frame label="Hus1 Multimedia" {
                 Text label="Cameras" icon="video" {

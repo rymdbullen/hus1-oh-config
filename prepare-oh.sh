@@ -15,6 +15,7 @@ BASE_DIR="$(dirname "$(readlink -f "$0")")"
 URL=$(curl --silent -kIXGET https://github.com/openhab/openhab/releases/latest | grep Location)
 AFTER_SLASH=$(basename "$URL" | tr -d '\r')
 VERSION_OH=${AFTER_SLASH:1}
+VERSION_OH=1.7.1
 
 echo ""
 echo "Version found: ${VERSION_OH}"
