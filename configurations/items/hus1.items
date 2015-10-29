@@ -28,10 +28,10 @@ Group:Contact:OR(OPEN, CLOSED)     Windows        "Open windows [(%d)]"         
 Switch  ipcam_fix     "Alarm ipcam_fix" (gAlarm)
 Switch  ipcam_dyn     "Alarm ipcam_dyn" (gAlarm)
 
-Switch   PresenceJan_PhoneMqttHus1      "Jan @ Hus1"       (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5:hus1" }
-Switch   PresenceJan_PhoneMqttWork      "Jan @ Work"       (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5:jan_jobb" }
-Switch   PresenceJan_PhoneMqttGachet    "Jan @ Gachet"     (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5:gachet" }
-Switch   PresenceJan_PhoneMqttMontriond "Jan @ Montriond"  (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5:montriond" }
+Switch   PresenceJan_PhoneMqttHus1      "Jan @ Hus1"       (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5/event:hus1" }
+Switch   PresenceJan_PhoneMqttWork      "Jan @ Work"       (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5/event:jan_jobb" }
+Switch   PresenceJan_PhoneMqttGachet    "Jan @ Gachet"     (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5/event:gachet" }
+Switch   PresenceJan_PhoneMqttMontriond "Jan @ Montriond"  (gPresence)  { mqttitude="mosquitto:owntracks/jstenval/find5/event:montriond" }
 String   Location_Jan_Phone                                             { mqtt="<[mosquitto:owntracks/jstenval/find5:state:JS(mqttitude-coordinates.js)]" }
 
 /* hus1 */
@@ -76,12 +76,12 @@ Contact Garage_Door             "Garage Door [MAP(en.map):%s]"                  
 
 
 Group Weather_Chart                                                             (Weather)
-String  Weather_Forecast_0      "Today [%s]"                      <wp0>                          { mqtt="<[mosquitto:/weather/@@WEATHER_LOCATION@@/forecast/0/day/icon:state:default]" }
-String  Weather_Forecast_1      "Tonight [%s]"                    <wp1>                          { mqtt="<[mosquitto:/weather/@@WEATHER_LOCATION@@/forecast/1/night/icon:state:default]" }
-String  Weather_Forecast_2      "Tomorrow day [%s]"               <wp2>                          { mqtt="<[mosquitto:/weather/@@WEATHER_LOCATION@@/forecast/2/day/icon:state:default]" }
-String  Weather_Forecast_3      "Tomorrow night [%s]"             <wp3>                          { mqtt="<[mosquitto:/weather/@@WEATHER_LOCATION@@/forecast/3/night/icon:state:default]" }
-Number  Weather_Temperature     "Outside Temperature [%.1f °C]"   <temperature> (Weather_Chart)  { mqtt="<[mosquitto:/weather/@@WEATHER_LOCATION@@/conditions/temp_c:state:default]" }
-Number  Weather_Humidity        "Outside Humidity [%.1f %%]"      <temperature> (Weather)        { mqtt="<[mosquitto:/weather/@@WEATHER_LOCATION@@/conditions/relative_humidity:state:default]" }
+String  Weather_Forecast_0      "Today [%s]"                      <wp0>                          { mqtt="<[mosquitto:weather/@@WEATHER_LOCATION@@/forecast/0/day/icon:state:default]" }
+String  Weather_Forecast_1      "Tonight [%s]"                    <wp1>                          { mqtt="<[mosquitto:weather/@@WEATHER_LOCATION@@/forecast/1/night/icon:state:default]" }
+String  Weather_Forecast_2      "Tomorrow day [%s]"               <wp2>                          { mqtt="<[mosquitto:weather/@@WEATHER_LOCATION@@/forecast/2/day/icon:state:default]" }
+String  Weather_Forecast_3      "Tomorrow night [%s]"             <wp3>                          { mqtt="<[mosquitto:weather/@@WEATHER_LOCATION@@/forecast/3/night/icon:state:default]" }
+Number  Weather_Temperature     "Outside Temperature [%.1f °C]"   <temperature> (Weather_Chart)  { mqtt="<[mosquittoweather/@@WEATHER_LOCATION@@/conditions/temp_c:state:default]" }
+Number  Weather_Humidity        "Outside Humidity [%.1f %%]"      <temperature> (Weather)        { mqtt="<[mosquitto:weather/@@WEATHER_LOCATION@@/conditions/relative_humidity:state:default]" }
 Number  Weather_Humidex         "Humidex [SCALE(humidex.scale):%s]"             (Weather)
 Number  Weather_Temp_Max        "Todays Maximum [%.1f °C]"        <temperature> (Weather_Chart)
 Number  Weather_Temp_Min        "Todays Minimum [%.1f °C]"        <temperature> (Weather_Chart)
