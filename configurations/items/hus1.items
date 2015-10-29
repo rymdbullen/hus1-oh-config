@@ -80,7 +80,7 @@ String  Weather_Forecast_0      "Today [%s]"                      <wp0>         
 String  Weather_Forecast_1      "Tonight [%s]"                    <wp1>                          { mqtt="<[mosquitto:weather/@@WEATHER_LOCATION@@/forecast/1/night/icon:state:default]" }
 String  Weather_Forecast_2      "Tomorrow day [%s]"               <wp2>                          { mqtt="<[mosquitto:weather/@@WEATHER_LOCATION@@/forecast/2/day/icon:state:default]" }
 String  Weather_Forecast_3      "Tomorrow night [%s]"             <wp3>                          { mqtt="<[mosquitto:weather/@@WEATHER_LOCATION@@/forecast/3/night/icon:state:default]" }
-Number  Weather_Temperature     "Outside Temperature [%.1f °C]"   <temperature> (Weather_Chart)  { mqtt="<[mosquittoweather/@@WEATHER_LOCATION@@/conditions/temp_c:state:default]" }
+Number  Weather_Temperature     "Outside Temperature [%.1f °C]"  <temperature> (Weather_Chart)  { mqtt="<[mosquitto:weather/@@WEATHER_LOCATION@@/conditions/temp_c:state:default]" }
 Number  Weather_Humidity        "Outside Humidity [%.1f %%]"      <temperature> (Weather)        { mqtt="<[mosquitto:weather/@@WEATHER_LOCATION@@/conditions/relative_humidity:state:default]" }
 Number  Weather_Humidex         "Humidex [SCALE(humidex.scale):%s]"             (Weather)
 Number  Weather_Temp_Max        "Todays Maximum [%.1f °C]"        <temperature> (Weather_Chart)
